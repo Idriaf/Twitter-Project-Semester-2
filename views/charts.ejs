@@ -1,0 +1,246 @@
+<p></p>
+<p style="padding-bottom: 5em;"></p>
+<canvas id="barChart" width="400" height="400" style="widows: 400px !important; display: inline !important;"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="doughnut-chart5" width="800" height="450"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="polar-chart" width="800" height="450"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="polar-chart2" width="800" height="450"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="polar-chart3" width="800" height="450"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="polar-chart4" width="800" height="450"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="polar-chart5" width="800" height="450"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="doughnut-chart3" width="800" height="450"></canvas>
+<p style="padding-bottom: 4em;"></p>
+<canvas id="doughnut-chart4" width="800" height="450"></canvas>
+
+
+<!-- <canvas id="radar-chart" width="800" height="600"></canvas>
+ -->
+
+
+<script>
+var ctx = document.getElementById('barChart');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: eval(`new Array(${"<%= labels %>".replace(/^\[|\]$/g, '')})`),
+    datasets: [{
+      type: 'bar',
+      label: 'Sentiment Score',
+      data: eval(`new Array(${"<%= newSentAnalysis %>".replace(/^\[|\]$/g, '')})`),
+    }]
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+            display: true,
+            labelString: 'Tweet'
+          },
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+        },
+        scaleLabel: {
+            display: true,
+            labelString: 'Sentiment Score '
+          },
+      }]
+    }
+  }
+});
+
+new Chart(document.getElementById("doughnut-chart5"), {
+    type: 'doughnut',
+    data: {
+      labels:["Positive", "Neutral", "Negative"],
+      datasets: [
+        {
+          label: ["Negative", "Neutral", "Positive"],
+          backgroundColor:["#009900","#737373","#800000"],
+          data: eval(`new Array(${"<%=sentList%>".replace(/^\[|\]$/g, '%')} )`), 
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Sentiment Breakdown',
+      }
+    }
+});
+
+new Chart(document.getElementById("polar-chart"), {
+    type: 'polarArea',
+    data: {
+      labels: eval(`new Array(${"<%= labels %>".replace(/^\[|\]$/g, '')})`),
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor:["#99ff99", "#70dbdb","#6600ff","#e8c3b9","#c45850", "#000099", "#ffff66", "#994d00","#194d19","#6699cc","#660033", "#ff9900", "#99cc00", "#0f3d3d","#e63900"],
+          data: eval(`new Array(${"<%= retweetsEach %>".replace(/^\[|\]$/g, '')})`),
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Retweets Per Tweet"
+      }
+    }
+});
+
+new Chart(document.getElementById("polar-chart2"), {
+    type: 'polarArea',
+    data: {
+      labels: eval(`new Array(${"<%= labels %>".replace(/^\[|\]$/g, '')})`),
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor:["#99ff99", "#70dbdb","#6600ff","#e8c3b9","#c45850", "#000099", "#ffff66", "#994d00","#194d19","#6699cc","#660033", "#ff9900", "#99cc00", "#0f3d3d","#e63900"],
+          data: eval(`new Array(${"<%= favoritesEach %>".replace(/^\[|\]$/g, '')})`),
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Favorites Per Tweet"
+      }
+    }
+});
+
+new Chart(document.getElementById("polar-chart3"), {
+    type: 'polarArea',
+    data: {
+      labels: eval(`new Array(${"<%= labels %>".replace(/^\[|\]$/g, '')})`),
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor:["#99ff99", "#70dbdb","#6600ff","#e8c3b9","#c45850", "#000099", "#ffff66", "#994d00","#194d19","#6699cc","#660033", "#ff9900", "#99cc00", "#0f3d3d","#e63900"],
+          data: eval(`new Array(${"<%= friendsEach %>".replace(/^\[|\]$/g, '')})`),
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Friends Per Tweet"
+      }
+    }
+});
+
+new Chart(document.getElementById("polar-chart4"), {
+    type: 'polarArea',
+    data: {
+      labels: eval(`new Array(${"<%= labels %>".replace(/^\[|\]$/g, '')})`),
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor:["#99ff99", "#70dbdb","#6600ff","#e8c3b9","#c45850", "#000099", "#ffff66", "#994d00","#194d19","#6699cc","#660033", "#ff9900", "#99cc00", "#0f3d3d","#e63900"],
+          data: eval(`new Array(${"<%= followerEach %>".replace(/^\[|\]$/g, '')})`),
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Followers Per Tweet"
+      }
+    }
+});
+
+
+new Chart(document.getElementById("polar-chart5"), {
+    type: 'polarArea',
+    data: {
+      labels: eval(`new Array(${"<%= labels %>".replace(/^\[|\]$/g, '')})`),
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor:["#99ff99", "#70dbdb","#6600ff","#e8c3b9","#c45850", "#000099", "#ffff66", "#994d00","#194d19","#6699cc","#660033", "#ff9900", "#99cc00", "#0f3d3d","#e63900"],
+          data: eval(`new Array(${"<%= charEachNew %>".replace(/^\[|\]$/g, '')})`),
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Charecters Per Tweet"
+      }
+    }
+});
+
+
+
+
+
+
+
+new Chart(document.getElementById("doughnut-chart3"), {
+    type: 'doughnut',
+    data: {
+      labels:["Influencers", "Non-Influencers"],
+      datasets: [
+        {
+          label: ["avg_InfluerencerNumber", "Non-nonInfluencer"],
+          backgroundColor:["#3e95cd","#c45850"],
+          data: eval(`new Array(${"<%=influencer_list%>".replace(/^\[|\]$/g, '')})`), 
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Influencer Breakdown',
+      }
+    }
+});
+
+
+
+
+
+
+/* new Chart(document.getElementById("radar-chart"), {
+    type: 'radar',
+    data: {
+      labels: ["Africa", "Asia", "Europe"],
+      datasets: [
+        {
+          label: "1950",
+          fill: true,
+          backgroundColor: "rgba(179,181,198,0.2)",
+          borderColor: "rgba(179,181,198,1)",
+          pointBorderColor: "#fff",
+          pointBackgroundColor: "rgba(179,181,198,1)",
+          data: eval(`new Array(${"<%= InsightsList %>".replace(/^\[|\]$/g, '')})`),
+        }, {
+          label: "2050",
+          fill: true,
+          backgroundColor: "rgba(255,99,132,0.2)",
+          borderColor: "rgba(255,99,132,1)",
+          pointBorderColor: "#fff",
+          pointBackgroundColor: "rgba(255,99,132,1)",
+          pointBorderColor: "#fff",
+          data: [25.48,54.16,7.61,8.06,4.45]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Distribution in % of world population'
+      }
+    }
+});
+ */
+
+
+</script>
